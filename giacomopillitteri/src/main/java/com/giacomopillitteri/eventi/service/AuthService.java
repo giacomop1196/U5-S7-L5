@@ -2,6 +2,7 @@ package com.giacomopillitteri.eventi.service;
 
 import com.giacomopillitteri.eventi.exception.RisorsaNonTrovataException;
 import com.giacomopillitteri.eventi.model.Utente;
+import com.giacomopillitteri.eventi.repository.RuoloRepository;
 import com.giacomopillitteri.eventi.repository.UtenteRepository;
 import com.giacomopillitteri.eventi.model.Ruolo.NomeRuolo; // Importa l'Enum del Ruolo
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.giacomopillitteri.eventi.model.Ruolo;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +25,7 @@ public class AuthService implements UserDetailsService {
 
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RuoloRepository ruoloRepository;
 
     // carica l'utente per username durante il login
     @Override
@@ -41,9 +44,14 @@ public class AuthService implements UserDetailsService {
             throw new RuntimeException("Username già in uso!");
         }
 
+        // Recupera il ruolo dal DB
+        Ruolo ruolo = ruoloRepository.findByNome(nomeRuolo)
+                .orElseThrow(() -> new RuntimeException("Ruolo non trovato: " + nomeRuolo));
+
         Utente nuovoUtente = new Utente();
         nuovoUtente.setUsername(username);
         nuovoUtente.setPassword(passwordEncoder.encode(rawPassword));
+        nuovoUtente.setRuolo(ruolo);
 
         return utenteRepository.save(nuovoUtente);
     }
