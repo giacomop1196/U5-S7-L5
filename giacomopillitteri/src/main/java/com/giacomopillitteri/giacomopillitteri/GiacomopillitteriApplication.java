@@ -1,0 +1,13 @@
+package com.giacomopillitteri.giacomopillitteri;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class GiacomopillitteriApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(GiacomopillitteriApplication.class, args);
+	}
+
+}
