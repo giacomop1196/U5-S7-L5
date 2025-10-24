@@ -1,4 +1,4 @@
-package com.giacomopillitteri.giacomopillitteri;
+package com.giacomopillitteri.eventi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

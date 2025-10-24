@@ -1,4 +1,4 @@
-package com.giacomopillitteri.giacomopillitteri;
+package com.giacomopillitteri.eventi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
